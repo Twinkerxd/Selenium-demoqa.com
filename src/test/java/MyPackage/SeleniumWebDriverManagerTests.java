@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SeleniumWebDriverManagerTests {
     private static final String URL = "https://the-internet.herokuapp.com/";
     private static final String LOGIN = "tomsmith";
@@ -23,7 +26,7 @@ public class SeleniumWebDriverManagerTests {
     }
 
     @Test
-    @DisplayName("URL checking")
+    @DisplayName("Checking current URL")
     public void urlCheck() {
         Assertions.assertEquals("https://the-internet.herokuapp.com/", driver.getCurrentUrl());
     }
@@ -36,7 +39,7 @@ public class SeleniumWebDriverManagerTests {
 
     @Test
     @DisplayName("Checking successful login message")
-    public void loginCheck() {
+    public void successfulLoginCheck() {
         driver.findElement(By.xpath("//a[text()='Form Authentication']")).click();
         driver.findElement(By.id("username")).sendKeys(LOGIN);
         driver.findElement(By.id("password")).sendKeys(PASSWORD);
@@ -48,7 +51,7 @@ public class SeleniumWebDriverManagerTests {
 
     @Test
     @DisplayName("Checking successful logout")
-    public void logoutCheck() {
+    public void successfulLogoutCheck() {
         driver.findElement(By.xpath("//a[text()='Form Authentication']")).click();
         driver.findElement(By.id("username")).sendKeys(LOGIN);
         driver.findElement(By.id("password")).sendKeys(PASSWORD);
@@ -57,6 +60,31 @@ public class SeleniumWebDriverManagerTests {
 
         String successfulLogoutMessage = driver.findElement(By.id("flash")).getText();
         Assertions.assertTrue(successfulLogoutMessage.contains("You logged out of the secure area!"));
+    }
+
+    @Test
+    @DisplayName("Checking adding elements")
+    public void addingElements() {
+        driver.findElement(By.xpath("//a[text()='Add/Remove Elements']")).click();
+        // need to check that we dont have elements before adding a new one
+        Assertions.assertTrue(driver.findElements(By.className("added-manually")).isEmpty());
+
+        driver.findElement(By.xpath("//button[text()='Add Element']")).click();
+        Assertions.assertEquals(1, driver.findElements(By.className("added-manually")).size());
+
+    }
+
+    @Test
+    @DisplayName("Checking deleting elements")
+    public void deletingElements() {
+        driver.findElement(By.xpath("//a[text()='Add/Remove Elements']")).click();
+        driver.findElement(By.xpath("//button[text()='Add Element']")).click();
+        driver.findElement(By.xpath("//button[text()='Add Element']")).click();
+
+        // deleting one element
+        driver.findElement(By.className("added-manually")).click();
+
+        Assertions.assertEquals(1, driver.findElements(By.className("added-manually")).size());
     }
 
     @AfterEach
