@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SeleniumWebDriverManagerTests {
@@ -85,6 +84,25 @@ public class SeleniumWebDriverManagerTests {
         driver.findElement(By.className("added-manually")).click();
 
         Assertions.assertEquals(1, driver.findElements(By.className("added-manually")).size());
+    }
+
+    @Test
+    @DisplayName("Checking checkboxes")
+    public void selectingCheckboxes() {
+        driver.findElement(By.xpath("//a[text()='Checkboxes']")).click();
+        String checkboxPath = "//input[@type='checkbox']";
+        List<WebElement> checkboxes = driver.findElements(By.xpath(checkboxPath));
+
+        Assertions.assertFalse(checkboxes.get(0).isSelected());
+        Assertions.assertTrue(checkboxes.get(1).isSelected());
+
+        driver.findElement(By.xpath(checkboxPath)).click();
+        Assertions.assertTrue(checkboxes.get(0).isSelected());
+        Assertions.assertTrue(checkboxes.get(1).isSelected());
+
+        driver.findElement(By.xpath(checkboxPath)).click();
+        Assertions.assertFalse(checkboxes.get(0).isSelected());
+        Assertions.assertTrue(checkboxes.get(1).isSelected());
     }
 
     @AfterEach
