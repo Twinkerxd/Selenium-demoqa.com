@@ -105,6 +105,17 @@ public class SeleniumWebDriverManagerTests {
         Assertions.assertTrue(checkboxes.get(1).isSelected());
     }
 
+    @Test
+    @DisplayName("Checking dropdown")
+    public void selectElementDropdown() {
+        driver.findElement(By.xpath("//a[text()='Dropdown']")).click();
+        Assertions.assertTrue(driver.findElement(By.xpath("//option[text()='Please select an option']")).isSelected());
+        driver.findElement(By.id("dropdown")).click();
+        driver.findElement(By.xpath("//option[text()='Option 1']")).click();
+
+        Assertions.assertTrue(driver.findElement(By.xpath("//option[text()='Option 1']")).isSelected());
+    }
+
     @AfterEach
     public void closingBrowser() {
         driver.quit();
