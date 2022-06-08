@@ -6,8 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class SeleniumWebDriverManagerTests {
     private static final String URL = "https://the-internet.herokuapp.com/";
@@ -18,10 +21,11 @@ public class SeleniumWebDriverManagerTests {
 
     @BeforeEach
     public void preparingTests() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup(); // installing WebDriver
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(URL);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS); // Added timeouts for all tests
     }
 
     @Test
@@ -114,6 +118,16 @@ public class SeleniumWebDriverManagerTests {
         driver.findElement(By.xpath("//option[text()='Option 1']")).click();
 
         Assertions.assertTrue(driver.findElement(By.xpath("//option[text()='Option 1']")).isSelected());
+    }
+
+    @Test
+    public void headingCheck() {
+        // explicit wait example
+        WebDriverWait expWait = new WebDriverWait(driver, 4, 500);
+        expWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".heading")));
+
+        Assertions.assertEquals("Welcome to the-internet", driver.findElement(By.cssSelector(".heading")).getText());
+        //driver.findElement(By.cssSelector(".heading")).getText().equals("Welcome to the-internet")
     }
 
     @AfterEach

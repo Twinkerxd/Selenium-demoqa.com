@@ -11,8 +11,8 @@ public class SeleniumLocalDriverTests {
         System.setProperty("webdriver.chrome.driver", "E:\\Soft\\chromedriver\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
-        driver.get("https://the-internet.herokuapp.com/");
         driver.manage().window().maximize();
+        driver.get("https://the-internet.herokuapp.com/");
         Thread.sleep(2000);
         driver.quit();
     }
