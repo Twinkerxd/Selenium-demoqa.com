@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -128,6 +129,16 @@ public class SeleniumWebDriverManagerTests {
 
         Assertions.assertEquals("Welcome to the-internet", driver.findElement(By.cssSelector(".heading")).getText());
         //driver.findElement(By.cssSelector(".heading")).getText().equals("Welcome to the-internet")
+    }
+
+    @Test
+    public void fileUploadCheck() {
+        File file = new File("src/horus logo.jpg");
+        driver.findElement(By.xpath("//a[text()='File Upload']")).click();
+        driver.findElement(By.id("file-upload")).sendKeys(file.getAbsolutePath());
+        driver.findElement(By.className("button")).click();
+
+        Assertions.assertTrue(driver.findElement(By.xpath("//h3[text()='File Uploaded!']")).isDisplayed());
     }
 
     @AfterEach
