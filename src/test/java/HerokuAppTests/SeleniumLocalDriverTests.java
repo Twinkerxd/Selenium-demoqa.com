@@ -1,4 +1,4 @@
-package MyPackage;
+package HerokuAppTests;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;

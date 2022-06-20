@@ -1,4 +1,4 @@
-package MyPackage;
+package HerokuAppTests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
