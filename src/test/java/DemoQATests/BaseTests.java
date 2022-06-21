@@ -14,8 +14,8 @@ public class BaseTests {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
 
-        driver.get("https://demoqa.com/");
         driver.manage().window().maximize();
+        driver.get("https://demoqa.com/");
     }
 
     @AfterEach
