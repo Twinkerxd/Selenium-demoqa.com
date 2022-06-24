@@ -4,7 +4,7 @@ import DemoQAPages.MainPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static DemoQAPages.Elements.*;
+import static DemoQAPages.MainPage.*;
 
 
 public class MainPageTests extends BaseTests {

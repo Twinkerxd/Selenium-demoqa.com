@@ -8,6 +8,13 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 public class MainPage {
+    public static final String ELEMENTS = "Elements";
+    public static final String FORMS = "Forms";
+    public static final String ALERTS = "Alerts, Frame & Windows";
+    public static final String WIDGETS = "Widgets";
+    public static final String INTERACTIONS = "Interactions";
+    public static final String BOOK = "Book Store Application";
+
 
     @FindBy(css = ".card")
     private List<WebElement> cards;
@@ -17,14 +24,14 @@ public class MainPage {
     }
 
     public WebElement findElement(String name) {
-        WebElement x = null;
+        WebElement element = null;
 
         for (WebElement card : cards) {
             if (card.getText().equals(name)) {
-                x = card;
+                element = card;
             }
         }
 
-        return x;
+        return element;
     }
 }
